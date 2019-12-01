@@ -64,3 +64,12 @@
   top: 4px;
   right: 5px;
 }
+
+.propertyfield {
+  width: 100%;
+  padding: 1px;
+}
+
+.propertytextarea {
+  resize: vertical;
+}

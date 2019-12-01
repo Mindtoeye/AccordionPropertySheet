@@ -44,34 +44,44 @@ class DryDock extends Component {
           title: "Primitives",
           fields:[
             {
-              name: "boolean",
+              name: "Boolean Value",
               value: true,
               type: "boolean"
             },
             {
-              name: "string",
-              value: "default value",
+              name: "String Value",
+              value: "",
               type: "string"
             },
             {
-              name: "integer",
+              name: "Integer Value",
               value: 10,
               type: "integer"
             },
             {
-              name: "float",
+              name: "Float Value",
               value: 1.0,
               type: "float"
+            },
+            {
+              name: "List Value",
+              value: ["Red","Green","Blue","Yellow","Brown"],
+              type: "enum"
+            },
+            {
+              name: "Text Value",
+              value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam cursus dignissim velit, nec iaculis tellus dapibus nec. Suspendisse volutpat lacus turpis, id aliquet purus scelerisque at. Cras eleifend ullamcorper massa, non molestie nunc finibus in. Cras tincidunt dui sit amet ultrices dictum. Integer tristique varius posuere. In nec orci a metus pharetra dapibus eget ac tellus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac ultricies quam. Nam porta at neque pretium faucibus. Cras aliquet tortor dui, in dignissim felis tristique id. Maecenas sed consequat ex.",
+              type: "text"
             }
           ]
         },
         {
-          title: "Pure Text",
+          title: "Rich Text",
           fields:[
             {
-              name: "text",
-              value: true,
-              type: "text"
+              name: "Rich Text",
+              value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam cursus dignissim velit, nec iaculis tellus dapibus nec. Suspendisse volutpat lacus turpis, id aliquet purus scelerisque at. Cras eleifend ullamcorper massa, non molestie nunc finibus in. Cras tincidunt dui sit amet ultrices dictum. Integer tristique varius posuere. In nec orci a metus pharetra dapibus eget ac tellus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac ultricies quam. Nam porta at neque pretium faucibus. Cras aliquet tortor dui, in dignissim felis tristique id. Maecenas sed consequat ex.",
+              type: "richtext"
             }
           ]
         }        

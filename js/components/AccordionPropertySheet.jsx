@@ -29,13 +29,11 @@ class AccordionPropertySheet extends Component {
 
     for (let i=0;i<this.props.data.length;i++) {
       let panelData=this.props.data [i];
-      let panel=<AccordionPanel key={"panel-"+i} title={panelData.title} />
+      let panel=<AccordionPanel key={"panel-"+i} title={panelData.title} fields={panelData.fields} />
       panels.push(panel);
     }
 
-  	return (<div id="accordionsheet" className="accordionsheet">  	
-      {panels}  	  
-    </div>);
+  	return (<div id="accordionsheet" className="accordionsheet" >{panels}</div>);
   }
 }
 
