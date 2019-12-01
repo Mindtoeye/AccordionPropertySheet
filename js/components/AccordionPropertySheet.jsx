@@ -25,9 +25,16 @@ class AccordionPropertySheet extends Component {
    *
    */
   render () {
-  	return (<div id="accordionsheet" className="accordionsheet">
-  	  <AccordionPanel />
-  	  <AccordionPanel />
+  	let panels=[];
+
+    for (let i=0;i<this.props.data.length;i++) {
+      let panelData=this.props.data [i];
+      let panel=<AccordionPanel key={"panel-"+i} title={panelData.title} />
+      panels.push(panel);
+    }
+
+  	return (<div id="accordionsheet" className="accordionsheet">  	
+      {panels}  	  
     </div>);
   }
 }

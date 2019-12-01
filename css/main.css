@@ -63,7 +63,8 @@ body {
 }
 
 .canvas {
-  border: 1px solid red;
+  border: 0px solid red;
   flex: 1;
   margin: 2px;
+  background: #dadada;
 }
