@@ -8,8 +8,22 @@
   margin: 2px;
   background: #f3f1f1;
   padding: 2px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;  
+}
+
+.accordionsheetfolded {
+  margin: 2px;
+  width: 14px;
+  background: #f3f1f1;
+  padding: 2px;
+  overflow: hidden;  	
+}
+
+.accordionmenu {
+  height: 12px;
+  color: #696767;
+  /* background: white;*/
 }
 
 .accordionpanel {

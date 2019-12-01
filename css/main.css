@@ -66,5 +66,6 @@ body {
   border: 0px solid red;
   flex: 1;
   margin: 2px;
-  background: #dadada;
+  /*background: #dadada;*/
+  overflow: scroll;
 }
