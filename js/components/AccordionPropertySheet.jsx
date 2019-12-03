@@ -35,6 +35,7 @@ class AccordionPropertySheet extends Component {
    */
   getPanelLocation (aPanel) {
   	let ref=ReactDOM.findDOMNode(this.refs[aPanel]);
+
   	if (ref!=null) {
   	  return (ref.getBoundingClientRect());
   	} else {

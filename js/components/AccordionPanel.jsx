@@ -30,6 +30,8 @@ class AccordionPanel extends Component {
   	this.state={
   	  x: 10,
   	  y: 10,
+  	  width: 100,
+  	  height: 150,
   	  folded: false,
   	  popout: false,
   	  startDate: new Date(),
@@ -103,7 +105,9 @@ class AccordionPanel extends Component {
   	  this.setState ({popout: false});
   	} else {
   	  let pos=this.props.getPanelLocation (this.props.panelId);
-  	  this.setState ({x: pos.x, y: pos.y, popout: true});
+  	  pos.x=10;
+  	  pos.y=10;
+  	  this.setState ({x: pos.x, y: pos.y, width: pos.width, height: pos.height, popout: true});
   	}  	
   }
 
@@ -339,8 +343,8 @@ class AccordionPanel extends Component {
   	}
 
     if (this.state.popout==true) {
-	  return (<Draggable handle=".accordiontitlebar" defaultPosition={{x: this.state.x, y: this.state.y}} scale={1}>
-	    <div ref={this.props.panelId} className="accordionpanelpopout">
+	  return (<Draggable handle=".accordiontitlebar" scale={1}>
+	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.state.x, top: this.state.y, width: this.state.width, height: this.state.height}}>
 		   <div className="accordiontitlebar">
 		   {this.props.title}
 		   <div className="accordionpanelpop" onClick={this.onPopout}>
