@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import AccordionPanel from './AccordionPanel';
 
@@ -25,7 +26,22 @@ class AccordionPropertySheet extends Component {
   	  panels: []  		
   	};
 
+    this.getPanelLocation = this.getPanelLocation.bind(this);
   	this.onFold = this.onFold.bind(this);
+  }
+
+  /**
+   *
+   */
+  getPanelLocation (aPanel) {
+  	let ref=ReactDOM.findDOMNode(this.refs[aPanel]);
+  	if (ref!=null) {
+  	  return (ref.getBoundingClientRect());
+  	} else {
+  	  console.log ("Internal error: can't obtain reference to panel: " + aPanel);
+  	}
+   
+    return ({x: 10, y: 10});
   }
 
   /**
@@ -47,7 +63,7 @@ class AccordionPropertySheet extends Component {
 
     for (let i=0;i<this.props.data.length;i++) {
       let panelData=this.props.data [i];
-      let panel=<AccordionPanel key={"panel-"+i} title={panelData.title} fields={panelData.fields} />
+      let panel=<AccordionPanel key={"panel-"+i} ref={"panel-"+i} panelId={"panel-"+i} getPanelLocation={this.getPanelLocation} title={panelData.title} fields={panelData.fields} />
       panels.push(panel);
     }
 

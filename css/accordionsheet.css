@@ -3,13 +3,13 @@
   flex: 0;
   min-width: 250px;
   width: 250px;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   margin: 2px;
   background: #f3f1f1;
   padding: 2px;
-  overflow-y: auto;
-  overflow-x: hidden;  
+  overflow-y: scroll;
+  overflow-x: hidden; 
 }
 
 .accordionsheetfolded {
@@ -27,6 +27,21 @@
 }
 
 .accordionpanel {
+  min-height: 150px;
+  background: #f7f7f7;
+  border: 1px solid #c7c7c7;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
+  padding: 4px;
+  margin: 4px;
+  display: flex;
+  /* flex: 1; */
+  flex-direction: column;
+}
+
+.accordionpanelpopout {
+  position: absolute;
   min-height: 150px;
   background: #f7f7f7;
   border: 1px solid #c7c7c7;
@@ -79,6 +94,12 @@
   right: 5px;
 }
 
+.accordionpanelpop {
+  position: absolute;
+  top: 3px;
+  right: 20px;
+}
+
 .propertyfield {
   width: 100%;
   padding: 1px;
@@ -86,4 +107,18 @@
 
 .propertytextarea {
   resize: vertical;
+}
+
+/* Font Awesome overrides */
+
+.fa-minus-square:hover {
+  color: black;
+}
+
+.fa-plus-square:hover {
+  color: black;
+}
+
+.fa-external-link-alt:hover {
+  color: black;
 }

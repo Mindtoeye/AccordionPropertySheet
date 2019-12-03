@@ -84,7 +84,27 @@ class DryDock extends Component {
               type: "richtext"
             }
           ]
-        }        
+        },
+        {
+          title: "Misc Types",
+          fields:[
+            {
+              name: "Date Picker",
+              value: "",
+              type: "date"
+            }
+          ]
+        },
+        {
+          title: "Font Chooser",
+          fields:[
+            {
+              name: "Configure Font",
+              value: "",
+              type: "font"
+            }
+          ]
+        }          
       ]
     };
   }
