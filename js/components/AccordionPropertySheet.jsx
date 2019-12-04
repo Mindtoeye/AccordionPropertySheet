@@ -81,19 +81,32 @@ class AccordionPropertySheet extends Component {
     console.log ("updatePanelData ("+aPanelId+")");
 
     let updatedPanels=this.dataTools.deepCopy (this.state.data);
+    let zIndex=10;
     
     for (let i=0;i<updatedPanels.length;i++) {
       let panel=updatedPanels [i];
       if (panel.uuid==aPanelId) {
         panel.popout=poppedout;
-        panel.folded=folded;
+
+        if (poppedout==true) {
+          panel.folded=false
+          panel.zIndex=1000;
+        } else {
+          panel.folded=folded;
+        }
+
         if (panelDimensions) {
+          //console.log (JSON.stringify(panelDimensions));
           panel.x=panelDimensions.x;
           panel.y=panelDimensions.y;
           panel.width=panelDimensions.width;
           panel.height=panelDimensions.height;
         }
+      } else {
+        panel.zIndex=zIndex;
       }
+
+      zIndex+=10;
     }
 
     this.setState ({data: updatedPanels});

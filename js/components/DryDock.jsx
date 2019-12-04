@@ -65,6 +65,7 @@ class DryDock extends Component {
       panel.visible=true;
       panel.popout=false;
       panel.folded=false;
+      panel.zIndex=10;
       panel.x=10;
       panel.y=10;
       panel.width=100;

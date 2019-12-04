@@ -344,7 +344,7 @@ class AccordionPanel extends Component {
 
     if (this.props.data.popout==true) {
   	  return (<Draggable handle=".accordiontitlebar" scale={1}>
-  	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.props.data.x, top: this.props.data.y, width: this.props.data.width, height: this.props.data.height}}>
+  	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.props.data.x, top: this.props.data.y, width: this.props.data.width, height: this.props.data.height, zIndex: this.props.data.zIndex}}>
   		   <div className="accordiontitlebar">
   		   {this.props.title}
   		   <div className="accordionpanelpop" onClick={this.onPopout}>

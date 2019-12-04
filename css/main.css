@@ -90,7 +90,7 @@ body {
 }
 
 .panelbutton {
-  min-height: 29px;
+  min-height: 20px;
   margin: 2px;
   display: block;
   float: left;
