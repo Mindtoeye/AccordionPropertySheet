@@ -28,12 +28,6 @@ class AccordionPanel extends Component {
   	super(props);
 
   	this.state={
-  	  x: 10,
-  	  y: 10,
-  	  width: 100,
-  	  height: 150,
-  	  folded: false,
-  	  popout: false,
   	  startDate: new Date(),
       fonts: [
         "Arial",
@@ -90,10 +84,14 @@ class AccordionPanel extends Component {
    *
    */
   onFold () {  	
-  	if (this.state.folded==true) {
-  	  this.setState ({folded: false});
+  	if (this.props.data.folded==true) {
+      if (this.props.updatePanelData) {
+        this.props.updatePanelData (this.props.data.uuid,false,this.props.data.popout,null);
+      }
   	} else {
-  	  this.setState ({folded: true});
+      if (this.props.updatePanelData) {
+        this.props.updatePanelData (this.props.data.uuid,true,this.props.data.popout,null);
+      }      
   	}
   }
 
@@ -101,14 +99,16 @@ class AccordionPanel extends Component {
    *
    */
   onPopout () {
-  	if (this.state.popout==true) {
-  	  this.setState ({popout: false});
-  	} else {
-  	  let pos=this.props.getPanelLocation (this.props.panelId);
-  	  pos.x=10;
-  	  pos.y=10;
-  	  this.setState ({x: pos.x, y: pos.y, width: pos.width, height: pos.height, popout: true});
-  	}  	
+    if (this.props.data.popout==true) {
+      if (this.props.updatePanelData) {
+        this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,false,null);
+      }
+    } else {
+      if (this.props.updatePanelData) {
+        let pos=this.props.getPanelLocation (this.props.data.uuid);
+        this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,true,pos);
+      }      
+    }    
   }
 
   /**
@@ -203,15 +203,15 @@ class AccordionPanel extends Component {
     let sample=this.fontTools.fontSpecToSample (this.state.style);
     let sampleStyle=this.fontTools.fontSpecToStyle (this.state.style);
       	
-	return (<label>
-     {aField.name}  	
-     <FontPicker label="Choose Font" fonts={this.state.fonts} previews={true} activeColor="#64B5F6" value="" onChange={this.handleFontChange.bind(this)}/>
-     <FontPicker label="Typeface" fonts={this.state.typeface} previews={true} activeColor="#64B5F6" value="" onChange={this.handleTypefaceChange.bind(this)}/> 
-     <FontPicker label="Size" fonts={this.state.sizes} previews={true} activeColor="#64B5F6" value="" onChange={this.handleFontSizeChange.bind(this)}/> 
-     <div id="fontsample" className="fontsample" style={sampleStyle}>
-     {sample}
-     </div>
-	</label>);        
+  	return (<label>
+       {aField.name}  	
+       <FontPicker label="Choose Font" fonts={this.state.fonts} previews={true} activeColor="#64B5F6" value="" onChange={this.handleFontChange.bind(this)}/>
+       <FontPicker label="Typeface" fonts={this.state.typeface} previews={true} activeColor="#64B5F6" value="" onChange={this.handleTypefaceChange.bind(this)}/> 
+       <FontPicker label="Size" fonts={this.state.sizes} previews={true} activeColor="#64B5F6" value="" onChange={this.handleFontSizeChange.bind(this)}/> 
+       <div id="fontsample" className="fontsample" style={sampleStyle}>
+       {sample}
+       </div>
+  	</label>);        
   }
 
   /**
@@ -330,30 +330,30 @@ class AccordionPanel extends Component {
   	let content;
   	let fields=[];
 
-  	if (this.state.folded==false) {
+  	if (this.props.data.folded==false) {
   	  accordionpanel="accordionpanel";
   	  foldicon=<FontAwesomeIcon icon={faMinusSquare}/>;
 
-      for (let i=0;i<this.props.fields.length;i++) {
-      	let newField=this.fieldToComponent (this.props.fields [i],i);
+      for (let i=0;i<this.props.data.fields.length;i++) {
+      	let newField=this.fieldToComponent (this.props.data.fields [i],i);
       	fields.push (newField);
       }
 
   	  content=<div className="accordioncontent">{fields}</div>;
   	}
 
-    if (this.state.popout==true) {
-	  return (<Draggable handle=".accordiontitlebar" scale={1}>
-	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.state.x, top: this.state.y, width: this.state.width, height: this.state.height}}>
-		   <div className="accordiontitlebar">
-		   {this.props.title}
-		   <div className="accordionpanelpop" onClick={this.onPopout}>
-		     {popouticon}
-		   </div>        
-		   </div>
-		   {content}
-		  </div>
-	   </Draggable>);
+    if (this.props.data.popout==true) {
+  	  return (<Draggable handle=".accordiontitlebar" scale={1}>
+  	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.props.data.x, top: this.props.data.y, width: this.props.data.width, height: this.props.data.height}}>
+  		   <div className="accordiontitlebar">
+  		   {this.props.title}
+  		   <div className="accordionpanelpop" onClick={this.onPopout}>
+  		     {popouticon}
+  		   </div>        
+  		   </div>
+  		   {content}
+  		  </div>
+  	   </Draggable>);
     }
 
     return (<div className={accordionpanel}>

@@ -4,6 +4,7 @@ import JSONTree from 'react-json-tree'
 
 import AccordionPropertySheet from './AccordionPropertySheet';
 import DataTools from './utils/datatools';
+import DataFactory from './data/datafactory';
 
 import '../../css/main.css';
 import '../../css/accordionsheet.css';
@@ -39,89 +40,88 @@ class DryDock extends Component {
    */
   constructor(props) {
     super(props);
+    
+    this.dataTools=new DataTools ();
+    this.dataFactory=new DataFactory ();
+
     this.state = {
-      data : [
-        {
-          title: "Primitives",
-          fields:[
-            {
-              name: "Boolean Value",
-              value: true,
-              type: "boolean"
-            },
-            {
-              name: "String Value",
-              value: "",
-              type: "string"
-            },
-            {
-              name: "Integer Value",
-              value: 10,
-              type: "integer"
-            },
-            {
-              name: "Float Value",
-              value: 1.0,
-              type: "float"
-            },
-            {
-              name: "List Value",
-              value: ["Red","Green","Blue","Yellow","Brown"],
-              type: "enum"
-            },
-            {
-              name: "Text Value",
-              value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam cursus dignissim velit, nec iaculis tellus dapibus nec. Suspendisse volutpat lacus turpis, id aliquet purus scelerisque at. Cras eleifend ullamcorper massa, non molestie nunc finibus in. Cras tincidunt dui sit amet ultrices dictum. Integer tristique varius posuere. In nec orci a metus pharetra dapibus eget ac tellus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac ultricies quam. Nam porta at neque pretium faucibus. Cras aliquet tortor dui, in dignissim felis tristique id. Maecenas sed consequat ex.",
-              type: "text"
-            }
-          ]
-        },
-        {
-          title: "Rich Text",
-          fields:[
-            {
-              name: "Rich Text",
-              value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam cursus dignissim velit, nec iaculis tellus dapibus nec. Suspendisse volutpat lacus turpis, id aliquet purus scelerisque at. Cras eleifend ullamcorper massa, non molestie nunc finibus in. Cras tincidunt dui sit amet ultrices dictum. Integer tristique varius posuere. In nec orci a metus pharetra dapibus eget ac tellus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac ultricies quam. Nam porta at neque pretium faucibus. Cras aliquet tortor dui, in dignissim felis tristique id. Maecenas sed consequat ex.",
-              type: "richtext"
-            }
-          ]
-        },
-        {
-          title: "Misc Types",
-          fields:[
-            {
-              name: "Date Picker",
-              value: "",
-              type: "date"
-            }
-          ]
-        },
-        {
-          title: "Font Chooser",
-          fields:[
-            {
-              name: "Configure Font",
-              value: "",
-              type: "font"
-            }
-          ]
-        }          
-      ]
+      data : this.prepData(this.dataFactory.getDefaultData ())
     };
 
-    this.dataTools=new DataTools ();
+    //console.log (JSON.stringify (this.state.data));
+
+    this.processPanelButton=this.processPanelButton.bind (this);
+  }
+
+  /**
+   *
+   */
+  prepData (data) {
+    let newData=this.dataTools.deepCopy (data);
+
+    for (let i=0;i<newData.length;i++) {
+      let panel=newData [i];
+      panel.uuid=this.dataTools.uuidv4();
+      panel.visible=true;
+      panel.popout=false;
+      panel.folded=false;
+      panel.x=10;
+      panel.y=10;
+      panel.width=100;
+      panel.height=150;
+
+      for (let j=0;j<panel.fields.length;j++) {
+        let field=panel.fields [j];
+        field.uuid=this.dataTools.uuidv4();
+      }
+    } 
+
+    return (newData);
+  }
+
+  /**
+   *
+   */
+  createPanelButtons () {
+    let buttons=[];
+
+    for (let i=0;i<this.state.data.length;i++) {
+      let panel=this.state.data [i];
+      let panelButton=<button id={panel.uuid} onClick={(e) => this.processPanelButton (panel.uuid)} className="panelbutton" key={"panelbutton-"+i}>{panel.title}</button>;
+      buttons.push(panelButton);
+    }
+
+    return (buttons);
+  }
+
+  /**
+   *
+   */
+  processPanelButton (id) {
+    console.log ("processPanelButton ("+id+")");
+
+    this.refs ["propertysheet"].processPanelButton (id);
   }
 
   /**
    *
    */
   render() {
+    let panelbuttons;
+
+    panelbuttons=this.createPanelButtons ();
+
     return (
-      <div className="maincontainer">        
-        <div id="canvas" className="canvas">
-          <JSONTree data={this.state.data} theme={theme} invertTheme={true} />
+      <div className="maincontainer">
+        <div id="canvas" className="leftpane">
+          <div id="toolbar" className="toolbar">
+           {panelbuttons}
+          </div>
+          <div id="datatree" className="canvas">
+            <JSONTree data={this.state.data} theme={theme} invertTheme={true} />
+          </div>
         </div>
-        <AccordionPropertySheet data={this.state.data} />
+        <AccordionPropertySheet ref="propertysheet" data={this.state.data} />
       </div>
     );
   }

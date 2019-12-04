@@ -10,6 +10,7 @@
   padding: 2px;
   overflow-y: scroll;
   overflow-x: hidden; 
+  height: 100%;
 }
 
 .accordionsheetfolded {
@@ -17,7 +18,8 @@
   width: 14px;
   background: #f3f1f1;
   padding: 2px;
-  overflow: hidden;  	
+  overflow: hidden;
+  height: 100%;
 }
 
 .accordionmenu {
