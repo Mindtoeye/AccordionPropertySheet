@@ -91,13 +91,13 @@
 .accordionpanelfold {
   position: absolute;
   top: 4px;
-  right: 5px;
+  right: 21px;
 }
 
 .accordionpanelpop {
   position: absolute;
   top: 3px;
-  right: 20px;
+  right: 5px;
 }
 
 .propertyfield {

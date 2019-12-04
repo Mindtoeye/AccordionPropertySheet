@@ -23,6 +23,7 @@ class AccordionPropertySheet extends Component {
 
   	this.state = {
   	  folded: false,
+  	  data: props.data,
   	  panels: []  		
   	};
 
@@ -62,8 +63,8 @@ class AccordionPropertySheet extends Component {
   render () {
   	let panels=[];
 
-    for (let i=0;i<this.props.data.length;i++) {
-      let panelData=this.props.data [i];
+    for (let i=0;i<this.state.data.length;i++) {
+      let panelData=this.state.data [i];
       let panel=<AccordionPanel key={"panel-"+i} ref={"panel-"+i} panelId={"panel-"+i} getPanelLocation={this.getPanelLocation} title={panelData.title} fields={panelData.fields} />
       panels.push(panel);
     }

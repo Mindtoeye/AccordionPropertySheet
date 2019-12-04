@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import JSONTree from 'react-json-tree'
 
 import AccordionPropertySheet from './AccordionPropertySheet';
+import DataTools from './utils/datatools';
 
 import '../../css/main.css';
 import '../../css/accordionsheet.css';
@@ -107,6 +108,8 @@ class DryDock extends Component {
         }          
       ]
     };
+
+    this.dataTools=new DataTools ();
   }
 
   /**
