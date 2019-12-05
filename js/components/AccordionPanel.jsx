@@ -99,7 +99,9 @@ class AccordionPanel extends Component {
   /**
    *
    */
-  onPopout () {
+  onPopout (e) {
+    e.stopPropagation();
+    
     if (this.props.data.popout==true) {
       if (this.props.updatePanelData) {
         this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,false,null);
@@ -186,15 +188,15 @@ class AccordionPanel extends Component {
    *
    */
   fieldEnumToComponent (aField) {  	
-	return (<label>
-     {aField.name}
-     <select className="propertyfield">
-	  <option value="grapefruit">Grapefruit</option>
-	  <option value="lime">Lime</option>
-	  <option value="coconut">Coconut</option>
-	  <option value="mango">Mango</option>
-	 </select>
-	</label>);
+  	return (<label>
+       {aField.name}
+       <select className="propertyfield">
+  	  <option value="grapefruit">Grapefruit</option>
+  	  <option value="lime">Lime</option>
+  	  <option value="coconut">Coconut</option>
+  	  <option value="mango">Mango</option>
+  	 </select>
+  	</label>);
   }   
 
   /**
@@ -353,9 +355,9 @@ class AccordionPanel extends Component {
   	}
 
     if (this.props.data.popout==true) {
-  	  return (<Draggable handle=".accordiontitlebar" scale={1}>
+  	  return (<Draggable handle=".accordiontitlebarpopped" scale={1}>
   	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.props.data.x, top: this.props.data.y, width: this.props.data.width, height: this.props.data.height, zIndex: this.props.data.zIndex}}>
-  		   <div className="accordiontitlebar" onClick={this.handleTitleClick}>
+  		   <div className="accordiontitlebarpopped" onClick={this.handleTitleClick}>
   		   {this.props.title}
   		   <div className="accordionpanelpop" onClick={this.onPopout}>
   		     {popouticon}

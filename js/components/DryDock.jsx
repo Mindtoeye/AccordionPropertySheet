@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// https://github.com/reduxjs/redux-devtools/blob/master/packages/react-json-tree/examples/src/App.js
 import JSONTree from 'react-json-tree'
 
 import AccordionPropertySheet from './AccordionPropertySheet';
@@ -99,8 +100,6 @@ class DryDock extends Component {
    *
    */
   processPanelButton (id) {
-    console.log ("processPanelButton ("+id+")");
-
     this.refs ["propertysheet"].processPanelButton (id);
   }
 

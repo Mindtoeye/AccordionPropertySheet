@@ -24,14 +24,14 @@ class AccordionPropertySheet extends Component {
 
   	this.state = {
   	  folded: false,
-  	  data: props.data,
-  	  panels: []  		
+  	  data: props.data
   	};
 
     this.dataTools=new DataTools ();
 
     this.getPanelLocation = this.getPanelLocation.bind(this);
   	this.onFold = this.onFold.bind(this);
+    this.updatePanelData = this.updatePanelData.bind(this);
   }
 
   /**
@@ -78,38 +78,40 @@ class AccordionPropertySheet extends Component {
    *
    */
   updatePanelData (aPanelId, folded, poppedout, panelDimensions) {
-    console.log ("updatePanelData ("+aPanelId+")");
+    //console.log ("updatePanelData ("+aPanelId+","+folded+","+poppedout+")");
 
     let updatedPanels=this.dataTools.deepCopy (this.state.data);
     let zIndex=10;
     
     for (let i=0;i<updatedPanels.length;i++) {
       let panel=updatedPanels [i];
+
       if (panel.uuid==aPanelId) {
         panel.popout=poppedout;
 
-        if (poppedout==true) {
-          panel.folded=false
+        if (panel.popout==true) {
+          panel.folded=false;
           panel.zIndex=1000;
         } else {
           panel.folded=folded;
         }
 
         if (panelDimensions) {
-          //console.log (JSON.stringify(panelDimensions));
           panel.x=panelDimensions.x;
           panel.y=panelDimensions.y;
           panel.width=panelDimensions.width;
           panel.height=panelDimensions.height;
-        }
+        }  
       } else {
         panel.zIndex=zIndex;
       }
-
+            
       zIndex+=10;
     }
 
-    this.setState ({data: updatedPanels});
+    this.setState ({data: updatedPanels}, (e) => {
+      //console.log (JSON.stringify (this.state.data));
+    });
   }
 
   /**
@@ -199,11 +201,12 @@ class AccordionPropertySheet extends Component {
     for (let i=0;i<this.state.data.length;i++) {
       let panelData=this.state.data [i];
       if (panelData.visible==true) {
-        if (panelData.popout==true) {
-          let panel=<AccordionPanel updatePanelData={this.updatePanelData.bind(this)} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
+        //console.log ("Panel: " + panelData.uuid +", popped out: " + panelData.popout);
+        if (panelData.popout==true) {          
+          let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
           panelsPopout.push(panel);
         } else {
-          let panel=<AccordionPanel updatePanelData={this.updatePanelData.bind(this)} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} />
+          let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} />
           panelsManaged.push(panel);
         }
       }
