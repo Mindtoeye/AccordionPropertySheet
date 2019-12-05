@@ -160,6 +160,35 @@ class AccordionPropertySheet extends Component {
   }
 
   /**
+   *
+   */
+  handleWindowPop (aPanelId) {
+    let updatedPanels=this.dataTools.deepCopy (this.state.data);
+
+    let targetPanel=null;
+
+    // Remove the panel we want to move to the top
+    for (let i=0;i<updatedPanels.length;i++) {
+      targetPanel=updatedPanels [i];
+      if (targetPanel.uuid==aPanelId) {
+        this.dataTools.removeElement (updatedPanels,targetPanel);
+        break;    
+      }
+    }
+  
+    // Insert it at the end of the array
+    updatedPanels.push (targetPanel);
+
+    // And now re-index;
+    for (let j=0;j<updatedPanels.length;j++) {
+      let panel=updatedPanels [j];
+      panel.zIndex=(j*10);
+    }    
+
+    this.setState ({data: updatedPanels});     
+  }
+
+  /**
    * <a onClick={this.allIn.bind(this)} href="#">all in</a>
    * <a onClick={this.allOut.bind(this)} href="#">all out</a>
    */
@@ -171,7 +200,7 @@ class AccordionPropertySheet extends Component {
       let panelData=this.state.data [i];
       if (panelData.visible==true) {
         if (panelData.popout==true) {
-          let panel=<AccordionPanel updatePanelData={this.updatePanelData.bind(this)} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} />
+          let panel=<AccordionPanel updatePanelData={this.updatePanelData.bind(this)} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
           panelsPopout.push(panel);
         } else {
           let panel=<AccordionPanel updatePanelData={this.updatePanelData.bind(this)} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} />

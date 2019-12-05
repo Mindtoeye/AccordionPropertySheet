@@ -71,6 +71,7 @@ class AccordionPanel extends Component {
 
   	this.onFold = this.onFold.bind(this);
   	this.onPopout = this.onPopout.bind(this);
+    this.handleTitleClick = this.handleTitleClick.bind(this);
   }
 
   /**
@@ -323,6 +324,15 @@ class AccordionPanel extends Component {
   /**
    *
    */
+  handleTitleClick () {
+    if (this.props.handleWindowPop) {
+      this.props.handleWindowPop (this.props.data.uuid);
+    }
+  }
+
+  /**
+   *
+   */
   render () {
   	let accordionpanel="accordionpanelfolded";
   	let foldicon=<FontAwesomeIcon icon={faPlusSquare}/>;
@@ -345,7 +355,7 @@ class AccordionPanel extends Component {
     if (this.props.data.popout==true) {
   	  return (<Draggable handle=".accordiontitlebar" scale={1}>
   	    <div ref={this.props.panelId} className="accordionpanelpopout" style={{left: this.props.data.x, top: this.props.data.y, width: this.props.data.width, height: this.props.data.height, zIndex: this.props.data.zIndex}}>
-  		   <div className="accordiontitlebar">
+  		   <div className="accordiontitlebar" onClick={this.handleTitleClick}>
   		   {this.props.title}
   		   <div className="accordionpanelpop" onClick={this.onPopout}>
   		     {popouticon}

@@ -31,20 +31,14 @@ class DataTools {
    * 
    */
   parameterSetValue (aParameters,aParameter,aValue) {
-	  console.log ("parameterSetValue ("+aValue+")");
-	
-	//console.log ("Original parameters: " + JSON.stringify (aParameters));
-	
+	  console.log ("parameterSetValue ("+aValue+")");	
     for (var key in aParameters) {
       if (aParameters.hasOwnProperty(key)) {
          if (key==aParameter) {
            aParameters [aParameter].value=aValue;
          }
       }
-    }  
-    
-    //console.log ("New parameters: " + JSON.stringify (aParameters));
-    
+    }      
     return(aParameters);
   }
   
@@ -135,6 +129,18 @@ class DataTools {
 
     return (anArray);
   }
+
+  /**
+   *
+   */
+  removeElement (anArray,aTarget) {
+    for( var i = 0; i < anArray.length; i++) { 
+      if (anArray[i] === aTarget) {
+        anArray.splice(i, 1);
+        return;
+      }
+    }
+  }  
 
   /**
    *
