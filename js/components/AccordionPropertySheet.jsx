@@ -203,6 +203,9 @@ class AccordionPropertySheet extends Component {
         if (panelData.popout==true) {          
           let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
           panelsPopout.push(panel);
+
+          let panelShadow=<AccordionPanel key={panelData.uuid+"-shadow"} shadow="true" data={panelData} title={panelData.title} />
+          panelsManaged.push(panelShadow);          
         } else {
           let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} />
           panelsManaged.push(panel);
@@ -226,7 +229,7 @@ class AccordionPropertySheet extends Component {
       <div id="accordionsheet" className="accordionsheet">
     	  <div className="accordionmenu">
           <FontAwesomeIcon icon={faAngleDoubleRight} onClick={this.onFold} />
-          <div className="accordionsheetlabelbutton"><a onClick={this.allIn.bind(this)} href="#">all-in</a></div>
+          <div className="accordionsheetlabelbutton fauxbutton"><a onClick={this.allIn.bind(this)} href="#">all-in</a></div>
     	  </div>
     	  {panelsManaged}
     	</div>
