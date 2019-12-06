@@ -133,6 +133,41 @@
   right: 5px;
 }
 
+.accordionsheetlabelbutton {
+  float: right;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 0px;
+  font-size: 10pt;
+  line-height: 10pt;
+  font-weight: bold;
+}
+
+.accordionsheetlabelbutton a {
+  text-decoration: none;
+  color: #696767;
+}
+
+ /* unvisited link */
+.accordionsheetlabelbutton a:link {
+  color: #696767;
+}
+
+/* visited link */
+.accordionsheetlabelbutton a:visited {
+  color: #696767;
+}
+
+/* mouse over link */
+.accordionsheetlabelbutton a:hover {
+  color: #696767;
+}
+
+/* selected link */
+.accordionsheetlabelbutton a:active {
+  color: #696767;
+} 
+
 .propertyfield {
   width: 100%;
   padding: 1px;

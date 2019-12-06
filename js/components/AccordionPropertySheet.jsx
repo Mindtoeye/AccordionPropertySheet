@@ -97,8 +97,8 @@ class AccordionPropertySheet extends Component {
         }
 
         if (panelDimensions) {
-          panel.x=panelDimensions.x;
-          panel.y=panelDimensions.y;
+          panel.x=panelDimensions.x+10;
+          panel.y=panelDimensions.y+10;
           panel.width=panelDimensions.width;
           panel.height=panelDimensions.height;
         }  
@@ -124,9 +124,7 @@ class AccordionPropertySheet extends Component {
     
     for (let i=0;i<updatedPanels.length;i++) {
       let panel=updatedPanels [i];
-      if (panel.uuid==aPanelId) {
-        panel.popout=false;
-      }
+      panel.popout=false;
     }
 
     this.setState ({data: updatedPanels});    
@@ -228,6 +226,7 @@ class AccordionPropertySheet extends Component {
       <div id="accordionsheet" className="accordionsheet">
     	  <div className="accordionmenu">
           <FontAwesomeIcon icon={faAngleDoubleRight} onClick={this.onFold} />
+          <div className="accordionsheetlabelbutton"><a onClick={this.allIn.bind(this)} href="#">all-in</a></div>
     	  </div>
     	  {panelsManaged}
     	</div>
