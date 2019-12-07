@@ -49,8 +49,6 @@ class DryDock extends Component {
       data : this.prepData(this.dataFactory.getDefaultData ())
     };
 
-    //console.log (JSON.stringify (this.state.data));
-
     this.processPanelButton=this.processPanelButton.bind (this);
   }
 

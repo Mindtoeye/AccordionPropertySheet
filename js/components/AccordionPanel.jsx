@@ -64,7 +64,8 @@ class AccordionPanel extends Component {
         font: this.props.font,
         typeface: this.props.typeface,
         size: this.props.size
-      }  	    	    	  
+      },
+      pos: null
   	};
 
     this.fontTools= new FontTools ();
@@ -109,7 +110,7 @@ class AccordionPanel extends Component {
     } else {
       if (this.props.updatePanelData) {
         let pos=this.props.getPanelLocation (this.props.data.uuid);
-        this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,true,pos);
+        this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,true,pos);  
       }      
     }    
   }
@@ -189,12 +190,12 @@ class AccordionPanel extends Component {
    */
   fieldEnumToComponent (aField) {  	
   	return (<label>
-       {aField.name}
-       <select className="propertyfield">
-  	  <option value="grapefruit">Grapefruit</option>
-  	  <option value="lime">Lime</option>
-  	  <option value="coconut">Coconut</option>
-  	  <option value="mango">Mango</option>
+      {aField.name}
+      <select className="propertyfield">
+  	    <option value="grapefruit">Grapefruit</option>
+  	    <option value="lime">Lime</option>
+  	    <option value="coconut">Coconut</option>
+  	    <option value="mango">Mango</option>
   	 </select>
   	</label>);
   }   
@@ -336,6 +337,18 @@ class AccordionPanel extends Component {
    *
    */
   render () {
+    if (this.props.shadow=="true") {
+      let height=150;
+      if (this.props.data.height) {
+        height=this.props.data.height;
+      }
+      return (<div className="accordionpanelshadow" style={{height: height}}>
+        <div className="centertext">
+        {this.props.title}
+        </div>
+      </div>);
+    }
+
   	let accordionpanel="accordionpanelfolded";
   	let foldicon=<FontAwesomeIcon icon={faPlusSquare}/>;
   	let popouticon=<FontAwesomeIcon icon={faExternalLinkAlt}/>
