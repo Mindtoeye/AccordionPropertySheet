@@ -16,6 +16,20 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import '../../css/accordionsheet.css';
 
+const extract = (str, pattern) => (str.match(pattern) || []).pop() || '';
+
+const extractHexadecimalWithColon = (str) => extract(str, "[0-9a-fA-F:]+");
+
+const extractHexadecimal = (str) => extract(str, "[0-9a-fA-F]+");
+
+const extractAlphanum = (str) => extract(str, "[0-9a-zA-Z]+");
+
+const extractAlpha = (str) => extract(str, "[a-zA-Z]+");
+
+const extractAlphaFloat = (str) => extract(str, "[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
+
+const not = (aValue) => {if (aValue==true) {return (false);} return (true);}
+
 /**
  *
  */
@@ -28,6 +42,12 @@ class AccordionPanel extends Component {
   	super(props);
 
   	this.state={
+      valueBoolean: true,
+      valueString: "",
+      valueText: "",
+      valueInteger: 0,
+      valueFloat: 0.0,
+      valueHex: 0x12,
   	  startDate: new Date(),
       fonts: [
         "Arial",
@@ -64,8 +84,7 @@ class AccordionPanel extends Component {
         font: this.props.font,
         typeface: this.props.typeface,
         size: this.props.size
-      },
-      pos: null
+      }
   	};
 
     this.fontTools= new FontTools ();
@@ -73,29 +92,113 @@ class AccordionPanel extends Component {
   	this.onFold = this.onFold.bind(this);
   	this.onPopout = this.onPopout.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleBooleanChange = this.handleBooleanChange.bind(this);
+    this.handleIntegerChange = this.handleIntegerChange.bind(this);
+    this.handleFloatChange = this.handleFloatChange.bind(this);
+    this.handleHexChange = this.handleHexChange.bind(this);
+    this.foldIn = this.foldIn.bind(this);
+    this.foldOut = this.foldOut.bind(this);
   }
 
   /**
    *
    */
-  handleChange () {
-    console.log ("handleChange ()");  	
+  handleStringChange (e) {
+    console.log ("handleStringChange ()");    
+
+    this.setState ({valueString: e.target.value});
   }
+
+  /**
+   *
+   */
+  handleTextChange (e) {
+    console.log ("handleTextChange ()");  	
+
+    this.setState ({valueText: e.target.value});
+  }
+
+  /**
+   * https://stackoverflow.com/questions/36304248/in-react-js-i-want-to-validate-length-and-restrict-numeric-alphanumeric-and-u
+   */
+  handleBooleanChange (e) {
+    console.log ("handleBooleanChange ("+e.target.value+")"); 
+    
+    //this.setState ({valueString: e.target.value});   
+  }
+
+  /**
+   * https://stackoverflow.com/questions/36304248/in-react-js-i-want-to-validate-length-and-restrict-numeric-alphanumeric-and-u
+   */
+  handleIntegerChange (e) {
+    console.log ("handleIntegerChange ()");    
+
+    if (e.target.value=="") {
+      this.setState ({valueInteger: 0});
+      return;
+    }    
+
+    this.setState ({valueInteger: extractAlpha(e.target.value)});
+  }  
+
+  /**
+   * https://stackoverflow.com/questions/36304248/in-react-js-i-want-to-validate-length-and-restrict-numeric-alphanumeric-and-u
+   */
+  handleFloatChange (e) {
+    console.log ("handleFloatChange ()");
+
+    if (e.target.value=="") {
+      this.setState ({valueFloat: 0.0});
+      return;      
+    }    
+
+    this.setState ({valueFloat: extractAlphaFloat(e.target.value)});
+  }   
+
+
+  /**
+   * https://stackoverflow.com/questions/36304248/in-react-js-i-want-to-validate-length-and-restrict-numeric-alphanumeric-and-u
+   */
+  handleHexChange (e) {
+    console.log ("handleHexChange ()");
+
+    if (e.target.value=="") {
+      this.setState ({valueHex: 0});
+      return;      
+    }
+
+    this.setState ({valueHex: extractHexadecimal(e.target.value)});
+  }  
 
   /**
    *
    */
   onFold () {  	
   	if (this.props.data.folded==true) {
-      if (this.props.updatePanelData) {
-        this.props.updatePanelData (this.props.data.uuid,false,this.props.data.popout,null);
-      }
+      this.foldOut ();
   	} else {
-      if (this.props.updatePanelData) {
-        this.props.updatePanelData (this.props.data.uuid,true,this.props.data.popout,null);
-      }      
+      this.foldIn ();
   	}
   }
+
+  /**
+   *
+   */
+  foldIn () {
+    if (this.props.updatePanelData) {
+     this.props.updatePanelData (this.props.data.uuid,true,this.props.data.popout,null);
+    }
+  }
+
+  /**
+   *
+   */
+  foldOut () {
+    if (this.props.updatePanelData) {
+     this.props.updatePanelData (this.props.data.uuid,false,this.props.data.popout,null);
+    }
+  }  
 
   /**
    *
@@ -104,11 +207,14 @@ class AccordionPanel extends Component {
     e.stopPropagation();
     
     if (this.props.data.popout==true) {
+      // Pop back in
       if (this.props.updatePanelData) {
         this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,false,null);
       }
     } else {
       if (this.props.updatePanelData) {
+        // Pop the panel out
+        this.foldOut();
         let pos=this.props.getPanelLocation (this.props.data.uuid);
         this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,true,pos);  
       }      
@@ -122,7 +228,7 @@ class AccordionPanel extends Component {
     return (	
       <label>
        {aField.name}
-       <input className="propertyfield" type="text" value={aField.value} onChange={this.handleChange} />
+       <input className="propertyfield" type="text" value={this.state.valueString} onChange={this.handleStringChange} />
       </label>);
   }
 
@@ -130,14 +236,22 @@ class AccordionPanel extends Component {
    *
    */
   fieldBooleanToComponent (aField) {  	
+    let checked=true;
+
+    if (this.state.valueBoolean==true) {
+      checked=true;  
+    } else {
+      checked=false;
+    }
+
     return (
    	  <div>
    	    {aField.name}<br />
-        <label>        
-          <input type="radio" value="true" checked={true} onChange={this.handleChange} />True<br />
+        <label> 
+          <input type="radio" value="boolean" checked={checked} onChange={this.handleBooleanChange} />True<br />
         </label>
         <label>
-          <input type="radio" value="false" checked={false} onChange={this.handleChange} />False<br />
+          <input type="radio" value="boolean" checked={not(checked)} onChange={this.handleBooleanChange} />False<br />
         </label>
     </div>);
   }
@@ -148,7 +262,7 @@ class AccordionPanel extends Component {
   fieldIntegerToComponent (aField) {
     return (<label>
        {aField.name}
-       <input className="propertyfield" type="text" value={aField.value} onChange={this.handleChange} />
+       <input className="propertyfield" type="text" value={this.state.valueInteger} onChange={this.handleIntegerChange} />
       </label>);  	
   }
   
@@ -158,8 +272,18 @@ class AccordionPanel extends Component {
   fieldFloatToComponent (aField) {
     return (<label>
        {aField.name}
-       <input className="propertyfield" type="text" value={aField.value} onChange={this.handleChange} />
+       <input className="propertyfield" type="text" value={this.state.valueFloat} onChange={this.handleFloatChange} />
       </label>);  	
+  }
+  
+  /**
+   *
+   */
+  fieldHexToComponent (aField) {
+    return (<label>
+       {aField.name}
+       <input className="propertyfield" type="text" value={this.state.valueHex} onChange={this.handleHexChange} />
+      </label>);    
   }      
 
   /**
@@ -168,7 +292,7 @@ class AccordionPanel extends Component {
   fieldTextToComponent (aField) {
   	return (<label>
        {aField.name}
-       <textarea value={aField.value} rows="5" className="propertyfield propertytextarea" onChange={this.handleChange} />
+       <textarea value={aField.valueText} rows="5" className="propertyfield propertytextarea" onChange={this.handleTextChange} />
     </label>);  	
   } 
 
@@ -239,6 +363,10 @@ class AccordionPanel extends Component {
   	if (aField.type=="float") {
   	  content=this.fieldFloatToComponent (aField);
   	}
+
+    if (aField.type=="hex") {
+      content=this.fieldHexToComponent (aField);
+    }    
   	
   	if (aField.type=="text") {
   	  content=this.fieldTextToComponent (aField);

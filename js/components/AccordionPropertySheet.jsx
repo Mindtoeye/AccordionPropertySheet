@@ -229,7 +229,7 @@ class AccordionPropertySheet extends Component {
       <div id="accordionsheet" className="accordionsheet">
     	  <div className="accordionmenu">
           <FontAwesomeIcon icon={faAngleDoubleRight} onClick={this.onFold} />
-          <div className="accordionsheetlabelbutton fauxbutton"><a onClick={this.allIn.bind(this)} href="#">all-in</a></div>
+          <div className="accordionsheetlabelbutton fauxbutton"><a onClick={this.allIn.bind(this)} href="#">all in</a></div>
     	  </div>
     	  {panelsManaged}
     	</div>

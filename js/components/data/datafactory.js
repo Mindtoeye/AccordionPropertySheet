@@ -32,6 +32,11 @@ class DataFactory {
               type: "float"
             },
             {
+              name: "Hexadecimal Value",
+              value: 0x12,
+              type: "hex"
+            },
+            {
               name: "List Value",
               value: ["Red","Green","Blue","Yellow","Brown"],
               type: "enum"
