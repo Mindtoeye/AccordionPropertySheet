@@ -3,7 +3,10 @@
   flex: 0;
   min-width: 250px;
   width: 250px;
-  margin: 2px;  
+  /* display: flex; */
+  /* flex-direction: column; */
+  margin: 2px;
+  background: #e2dede;
   padding: 2px;
   overflow-y: scroll;
   overflow-x: hidden; 
