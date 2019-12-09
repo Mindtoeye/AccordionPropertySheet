@@ -214,7 +214,9 @@ class AccordionPanel extends Component {
     } else {
       if (this.props.updatePanelData) {
         // Pop the panel out
-        this.foldOut();
+        if (this.props.data.folded==true) {
+          this.foldOut();
+        }
         let pos=this.props.getPanelLocation (this.props.data.uuid);
         this.props.updatePanelData (this.props.data.uuid,this.props.data.folded,true,pos);  
       }      

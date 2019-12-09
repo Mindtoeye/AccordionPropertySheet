@@ -24,7 +24,8 @@ class AccordionPropertySheet extends Component {
 
   	this.state = {
   	  folded: false,
-  	  data: props.data
+  	  data: props.data,
+      winlist: []
   	};
 
     this.dataTools=new DataTools ();
@@ -78,10 +79,8 @@ class AccordionPropertySheet extends Component {
    *
    */
   updatePanelData (aPanelId, folded, poppedout, panelDimensions) {
-    //console.log ("updatePanelData ("+aPanelId+","+folded+","+poppedout+")");
-
     let updatedPanels=this.dataTools.deepCopy (this.state.data);
-    let zIndex=10;
+    let updatedWinlist=this.dataTools.deepCopy (this.state.winlist);
     
     for (let i=0;i<updatedPanels.length;i++) {
       let panel=updatedPanels [i];
@@ -89,37 +88,44 @@ class AccordionPropertySheet extends Component {
       if (panel.uuid==aPanelId) {
         panel.popout=poppedout;
 
+        // Activate code that configures the window stack
         if (panel.popout==true) {
           panel.folded=false;
-          panel.zIndex=1000;
+
+          if (panelDimensions) {
+            panel.x=panelDimensions.x+10;
+            panel.y=panelDimensions.y+10;
+            panel.width=panelDimensions.width;
+            panel.height=panelDimensions.height;
+          }
+
+          updatedWinlist.push (panel);
         } else {
+          for (let j=0;j<updatedWinlist.length;j++) {
+            let delPanel=updatedWinlist [j];
+            if (delPanel.uuid==panel.uuid) {
+              this.dataTools.removeElement (updatedWinlist,delPanel);
+              break;              
+            }
+          }
+            
           panel.folded=folded;
+          
+          if (this.state.folded==true) {
+            this.onFold ();
+          }
         }
 
-        if (panelDimensions) {
-          panel.x=panelDimensions.x+10;
-          panel.y=panelDimensions.y+10;
-          panel.width=panelDimensions.width;
-          panel.height=panelDimensions.height;
-        }  
-      } else {
-        panel.zIndex=zIndex;
+        this.setState ({data: updatedPanels, winlist: updatedWinlist});
+        return;
       }
-            
-      zIndex+=10;
     }
-
-    this.setState ({data: updatedPanels}, (e) => {
-      //console.log (JSON.stringify (this.state.data));
-    });
   }
 
   /**
    *
    */
   allIn () {
-    console.log ("allIn ()");
-
     let updatedPanels=this.dataTools.deepCopy (this.state.data);
     
     for (let i=0;i<updatedPanels.length;i++) {
@@ -141,8 +147,6 @@ class AccordionPropertySheet extends Component {
    *
    */
   processPanelButton (aPanelId) {
-    console.log ("processPanelButton ()");
-
     let updatedPanels=this.dataTools.deepCopy (this.state.data);
     
     for (let i=0;i<updatedPanels.length;i++) {
@@ -163,7 +167,7 @@ class AccordionPropertySheet extends Component {
    *
    */
   handleWindowPop (aPanelId) {
-    let updatedPanels=this.dataTools.deepCopy (this.state.data);
+    let updatedPanels=this.dataTools.deepCopy (this.state.winlist);
 
     let targetPanel=null;
 
@@ -185,12 +189,11 @@ class AccordionPropertySheet extends Component {
       panel.zIndex=(j*10);
     }    
 
-    this.setState ({data: updatedPanels});     
+    this.setState ({winlist: updatedPanels});     
   }
 
   /**
-   * <a onClick={this.allIn.bind(this)} href="#">all in</a>
-   * <a onClick={this.allOut.bind(this)} href="#">all out</a>
+   *
    */
   render () {
   	let panelsPopout=[];
@@ -199,11 +202,7 @@ class AccordionPropertySheet extends Component {
     for (let i=0;i<this.state.data.length;i++) {
       let panelData=this.state.data [i];
       if (panelData.visible==true) {
-        //console.log ("Panel: " + panelData.uuid +", popped out: " + panelData.popout);
-        if (panelData.popout==true) {          
-          let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
-          panelsPopout.push(panel);
-
+        if (panelData.popout==true) {
           let panelShadow=<AccordionPanel key={panelData.uuid+"-shadow"} shadow="true" data={panelData} title={panelData.title} />
           panelsManaged.push(panelShadow);          
         } else {
@@ -212,6 +211,16 @@ class AccordionPropertySheet extends Component {
         }
       }
     }
+
+    for (let i=0;i<this.state.winlist.length;i++) {
+      let panelData=this.state.winlist [i];
+      if (panelData.visible==true) {
+        if (panelData.popout==true) {          
+          let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
+          panelsPopout.push(panel);
+        }
+      }
+    }    
 
     if (this.state.folded==true) {
       return (<div>

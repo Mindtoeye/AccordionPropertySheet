@@ -136,10 +136,11 @@ class DataTools {
   removeElement (anArray,aTarget) {
     for( var i = 0; i < anArray.length; i++) { 
       if (anArray[i] === aTarget) {
-        anArray.splice(i, 1);
-        return;
+        return (anArray.splice(i, 1));
       }
     }
+
+    return (null);
   }  
 
   /**
