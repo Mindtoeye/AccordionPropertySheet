@@ -87,7 +87,8 @@ class DryDock extends Component {
 
     for (let i=0;i<this.state.data.length;i++) {
       let panel=this.state.data [i];
-      let panelButton=<button id={panel.uuid} onClick={(e) => this.processPanelButton (panel.uuid)} className="panelbutton" key={"panelbutton-"+i}>{panel.title}</button>;
+      //let panelButton=<button id={panel.uuid} onClick={(e) => this.processPanelButton (panel.uuid)} className="panelbutton" key={"panelbutton-"+i}>{panel.title}</button>;
+      let panelButton=<div key={"panelbutton-"+i} className="flowdiv"><input id={panel.uuid} type="checkbox" onChange={(e) => this.processPanelButton (panel.uuid)} defaultChecked={panel.visible}/>{panel.title}</div>;
       buttons.push(panelButton);
     }
 
