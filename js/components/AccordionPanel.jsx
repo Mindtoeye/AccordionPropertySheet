@@ -7,6 +7,8 @@ import Draggable, {DraggableCore} from 'react-draggable';
 import FontPicker from './FontPicker';
 import FontTools from './utils/fonttools';
 
+import AccordionPropertyEditorTemplate from './AccordionPropertyEditorTemplate';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { faMinusSquare } from '@fortawesome/free-solid-svg-icons'
