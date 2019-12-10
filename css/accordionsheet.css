@@ -30,6 +30,15 @@
   /* background: white;*/
 }
 
+.accordionmenutitle {
+  float: left;
+  font-size: 10pt;
+  line-height: 10pt;
+  padding-left: 4px;
+  padding-top: 1px;
+  font-weight: bold;
+}
+
 .accordionpanel {
   min-height: 150px;
   background: #f7f7f7;
