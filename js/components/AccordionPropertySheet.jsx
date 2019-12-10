@@ -168,7 +168,6 @@ class AccordionPropertySheet extends Component {
    */
   handleWindowPop (aPanelId) {
     let updatedPanels=this.dataTools.deepCopy (this.state.winlist);
-
     let targetPanel=null;
 
     // Remove the panel we want to move to the top
