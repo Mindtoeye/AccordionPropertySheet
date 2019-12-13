@@ -2,6 +2,8 @@
 
 A property sheet component allowing multiple vertical sheets to be stacked together
 
+![Image](https://github.com/Knossys/AccordionPropertySheet/resources/screenshot.png)
+
 ## Using and Developing the React Code
 
 We've provided several useful scripts that should get you up and running quickly. All you should
