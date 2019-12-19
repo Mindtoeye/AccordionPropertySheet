@@ -23,9 +23,9 @@ class AccordionPropertySheet extends Component {
   	super(props);
 
   	this.state = {
-  	  folded: false,
-  	  data: props.data,
-      winlist: []
+  	  folded: false, // Local state of panel prop, investigate this!
+  	  data: props.data, // The incoming data, we need to remove this and rely on props only
+      winlist: [] // a local strucure to hold a list of all the popped out panels in z-index order
   	};
 
     this.dataTools=new DataTools ();
@@ -135,13 +135,6 @@ class AccordionPropertySheet extends Component {
 
     this.setState ({data: updatedPanels});    
   }
-
-  /**
-   *
-   */
-  allOut () {
-    console.log ("allOut ()");
-  }  
 
   /**
    *
