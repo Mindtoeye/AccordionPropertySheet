@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -12,8 +11,8 @@ import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import '../../css/accordionsheet.css';
 
 /**
-*
-*/
+ *
+ */
 class AccordionPropertySheet extends Component {
 
   /**
@@ -133,6 +132,8 @@ class AccordionPropertySheet extends Component {
       panel.popout=false;
     }
 
+    //console.log (updatedPanels);
+
     this.setState ({data: updatedPanels});    
   }
 
@@ -191,6 +192,7 @@ class AccordionPropertySheet extends Component {
   	let panelsPopout=[];
     let panelsManaged=[];
 
+    // Create a list of all the windows that need to be managed inside the accordion sheet
     for (let i=0;i<this.state.data.length;i++) {
       let panelData=this.state.data [i];
       if (panelData.visible==true) {
@@ -204,15 +206,16 @@ class AccordionPropertySheet extends Component {
       }
     }
 
-    for (let i=0;i<this.state.winlist.length;i++) {
-      let panelData=this.state.winlist [i];
+    // Create a list of all those windows that have been popped out
+    for (let i=0;i<this.state.data.length;i++) {
+      let panelData=this.state.data [i];
       if (panelData.visible==true) {
         if (panelData.popout==true) {          
           let panel=<AccordionPanel updatePanelData={this.updatePanelData} key={panelData.uuid} ref={panelData.uuid} panelId={panelData.uuid} getPanelLocation={this.getPanelLocation} title={panelData.title} data={panelData} handleWindowPop={this.handleWindowPop.bind(this)} />
           panelsPopout.push(panel);
         }
       }
-    }    
+    }
 
     if (this.state.folded==true) {
       return (<div>
@@ -231,7 +234,7 @@ class AccordionPropertySheet extends Component {
     	  <div className="accordionmenu">
           <FontAwesomeIcon icon={faAngleDoubleRight} onClick={this.onFold} style={{"float": "left", "marginTop": "1px"}}/>
           <div className="accordionmenutitle">Properties</div>
-          <div className="accordionsheetlabelbutton fauxbutton"><a onClick={this.allIn.bind(this)} href="#">all in</a></div>
+          <div className="accordionsheetlabelbutton fauxbutton"><a onClick={this.allIn.bind(this)} href="#">all in >> </a></div>
     	  </div>
     	  {panelsManaged}
     	</div>
