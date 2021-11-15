@@ -9,3 +9,4 @@ if [[ $? = 0 ]]; then
 fi
 
 npm install
+npm list -depth 10 > ./deptree.txt
