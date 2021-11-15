@@ -1,1 +1,2 @@
+clear
 npm install

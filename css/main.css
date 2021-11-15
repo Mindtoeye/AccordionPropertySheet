@@ -15,6 +15,10 @@
    user-select: none;
 }
 
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 html {
   box-sizing: border-box;
   -ms-text-size-adjust: 100%;
@@ -27,10 +31,8 @@ html {
 
   font-family: Verdana;
   font-size: 10pt;
-}
 
-*, *:before, *:after {
-  box-sizing: inherit;
+  background: black;  
 }
 
 body {
@@ -41,6 +43,8 @@ body {
   overflow: hidden;
 
   line-height: 2;
+
+  background: black;
 }
 
 .main {
