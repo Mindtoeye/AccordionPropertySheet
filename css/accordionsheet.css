@@ -3,34 +3,37 @@
   flex: 0;
   min-width: 250px;
   width: 250px;
-  /* display: flex; */
-  /* flex-direction: column; */
   margin: 2px;
-  background: #e2dede;
   padding: 2px;
   overflow-y: scroll;
   overflow-x: hidden; 
   height: 100%;
 
-  background: #dad8d8;
-  background: url('images/neutral-background.jpg');
+  background: #383838;;
+  /*background: url('images/neutral-background.jpg');*/
 }
 
 .accordionsheetfolded {
   margin: 2px;
-  width: 14px;
-  background: #f3f1f1;
+  width: 18px;
   padding: 2px;
   overflow: hidden;
   height: 100%;
+
+  background: #545353;
+  border: 1px solid #7a7676;  
+  border-radius: 2px;
 }
 
 .accordionmenu {
   height: 16px;
-  color: #696767;
-  background: white;
-  margin-bottom: 7px;
-  padding: 1px;
+  color: #cbcbcb;
+  margin-top: 4px;
+  padding: 0px;
+}
+
+.accordionmenu:hover {
+  color: #cbcbcb;
 }
 
 .accordionmenutitle {
@@ -44,11 +47,6 @@
 
 .accordionpanel {
   min-height: 150px;
-  background: #f7f7f7;
-  border: 1px solid #c7c7c7;
-  /* -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28); */
-  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
-  /* box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28); */
   padding: 4px;
   margin: 4px;
   margin-bottom: 7px;
@@ -57,16 +55,18 @@
   flex-direction: column;
   border-radius: 3px;
   resize: vertical;
-  overflow: hidden;  
+  overflow: hidden; 
+
+  background: #545353;
+  border: 1px solid #7a7676;
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);   
 }
 
 .accordionpanelshadow {
   min-height: 150px;
-  border: 1px solid #c7c7c7;
+  border: 1px solid #5c5c5c;
   border-radius: 3px;
-  /* -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28); */
   -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
-  /* box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28); */
   padding: 4px;
   margin: 4px;
   margin-bottom: 7px;
@@ -74,58 +74,51 @@
   flex-direction: column;
 
   color: #969696;
-
   /* https://css-tricks.com/stripes-css/ */
-  background: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 10px,
-      #ddd 10px,
-      #ddd 20px
-    );  
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px, #3c3c3c 10px, #3c3c3c 20px );
 }
 
 .accordionpanelpopout {
   position: absolute;
   min-height: 150px;
-  background: #f7f7f7;
-  border: 1px solid #c7c7c7;
-  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
-  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
-  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
   padding: 4px;
   margin: 4px;
   display: flex;
   flex-direction: column;
   border-radius: 3px;
   resize: vertical;
-  overflow: hidden;  
+  overflow: hidden; 
+
+  background: #545353;
+  border: 1px solid #7a7676;
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);      
 }
 
-.accordionpanelfolded {
-  background: #f7f7f7;
-  border: 1px solid #c7c7c7;
-  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
+.accordionpanelfolded {  
+  -webkit-box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 28%);
   -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
-  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 28%);
   padding: 4px;
   margin: 4px;
   display: flex;
   flex-direction: column;
+  background: #545353;
+  border: 1px solid #7a7676;
 }
 
 .accordiontitlebar {
   height: 20px;
   line-height: 18px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   padding: 2px;
   line-height: 17px;
-  background: #d0cbcb;
-  color: #696767;
   text-align: center;
   font-weight: bold;
   position: relative;
+  border-radius: 2px;
+
+  background: #383838;
+  color: #cdc9c9;  
 }
 
 .accordiontitlebarpopped {
@@ -134,26 +127,13 @@
   margin-bottom: 2px;
   padding: 2px;
   line-height: 17px;
-  background: #dedbdb;
-  color: #696767;
   text-align: center;
   font-weight: bold;
   position: relative;
   cursor: hand;
-}
 
-.accordiontitlebarpopped:hover {
-  height: 20px;
-  line-height: 18px;
-  margin-bottom: 2px;
-  padding: 2px;
-  line-height: 17px;
-  background: #bfbaba;
-  color: #696767;
-  text-align: center;
-  font-weight: bold;
-  position: relative;  
-  cursor: hand;
+  background: #383838;
+  color: #cdc9c9;  
 }
 
 .accordioncontent {
@@ -161,7 +141,7 @@
   display: flex;
   flex-direction: column;    
   overflow-x: hidden;
-  background: #e4e4e4;
+  background: #686767;
   padding: 2px;
 }
 
@@ -206,40 +186,22 @@
   float: right;
   margin-left: 2px;
   margin-right: 2px;
-  padding: 0px;
+  padding: 2px;
   padding-left: 5px;
   padding-right: 5px;
   font-size: 8pt;
   line-height: 9pt;
   font-weight: bold;
-  border: 1px outset #ffffff;
+  border: 1px outset #626161;
   border-radius: 2px;
+  background: #504f4f;
+  color: white;
 }
 
 .accordionsheetlabelbutton a {
   text-decoration: none;
-  color: #696767;
+  color: #cdc9c9;
 }
-
- /* unvisited link */
-.accordionsheetlabelbutton a:link {
-  color: #696767;
-}
-
-/* visited link */
-.accordionsheetlabelbutton a:visited {
-  color: #696767;
-}
-
-/* mouse over link */
-.accordionsheetlabelbutton a:hover {
-  color: #696767;
-}
-
-/* selected link */
-.accordionsheetlabelbutton a:active {
-  color: #696767;
-} 
 
 .propertyfield {
   width: 100%;
