@@ -91,7 +91,10 @@
 
   background: #545353;
   border: 1px solid #7a7676;
-  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.28);      
+
+  -webkit-box-shadow: 0px 0px 4px 3px rgb(0 0 0 / 45%);
+  -moz-box-shadow: 0px 0px 4px 3px rgba(0,0,0,0.45);
+  box-shadow: 0px 0px 4px 3px rgb(0 0 0 / 45%);
 }
 
 .accordionpanelfolded {  
