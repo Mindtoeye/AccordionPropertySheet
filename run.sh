@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 
 clear
 
@@ -13,4 +13,4 @@ if [ ! -d "node_modules" ]; then
   exit
 fi
 
-npm run watch
+npm run start

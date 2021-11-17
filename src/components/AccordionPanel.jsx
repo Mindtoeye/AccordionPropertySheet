@@ -1,11 +1,7 @@
 
 import React, { Component } from 'react';
 
-import DatePicker from "react-datepicker";
 import Draggable, {DraggableCore} from 'react-draggable';
-
-import FontPicker from './FontPicker';
-import FontTools from './utils/fonttools';
 
 import AccordionPropertyEditorTemplate from './AccordionPropertyEditorTemplate';
 
@@ -14,8 +10,6 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { faMinusSquare } from '@fortawesome/free-solid-svg-icons'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
  
-import "react-datepicker/dist/react-datepicker.css";
-
 import '../../css/accordionsheet.css';
 
 const extract = (str, pattern) => (str.match(pattern) || []).pop() || '';
@@ -89,7 +83,7 @@ class AccordionPanel extends Component {
       }
   	};
 
-    this.fontTools= new FontTools ();
+    //this.fontTools= new FontTools ();
 
   	this.onFold = this.onFold.bind(this);
   	this.onPopout = this.onPopout.bind(this);
@@ -188,6 +182,8 @@ class AccordionPanel extends Component {
    *
    */
   foldIn () {
+    console.log ("fondIn ()");
+
     if (this.props.updatePanelData) {
      this.props.updatePanelData (this.props.data.uuid,true,this.props.data.popout,null);
     }
@@ -197,6 +193,8 @@ class AccordionPanel extends Component {
    *
    */
   foldOut () {
+    console.log ("fondOut ()");
+
     if (this.props.updatePanelData) {
      this.props.updatePanelData (this.props.data.uuid,false,this.props.data.popout,null);
     }
@@ -206,6 +204,8 @@ class AccordionPanel extends Component {
    *
    */
   onPopout (e) {
+    console.log ("onPopout ()");
+
     e.stopPropagation();
     
     if (this.props.data.popout==true) {
@@ -303,6 +303,7 @@ class AccordionPanel extends Component {
   /**
    *
    */
+  /* 
   fieldDateToComponent (aField) {
   	return (<label>
        {aField.name}
@@ -311,7 +312,8 @@ class AccordionPanel extends Component {
         onChange={this.handleChange}
         />
     </label>);  	
-  }   
+  }
+  */  
 
   /**
    *
@@ -331,6 +333,7 @@ class AccordionPanel extends Component {
   /**
    *
    */
+  /* 
   fieldFontToComponent (aField) {
     let sample=this.fontTools.fontSpecToSample (this.state.style);
     let sampleStyle=this.fontTools.fontSpecToStyle (this.state.style);
@@ -345,6 +348,7 @@ class AccordionPanel extends Component {
        </div>
   	</label>);        
   }
+  */
 
   /**
   *
@@ -380,13 +384,17 @@ class AccordionPanel extends Component {
   	  content=this.fieldEnumToComponent (aField);
   	}   	  	  	
 
+    /*  
   	if (aField.type=="date") {
   	  content=this.fieldDateToComponent (aField);
   	} 
+    */
 
+    /*
   	if (aField.type=="font") {
   	  content=this.fieldFontToComponent (aField);
-  	}   	
+  	} 
+    */  	
 
   	return (<div key={"field-"+anIndex} className="propertyfield">{content}</div>);
   }
@@ -394,6 +402,7 @@ class AccordionPanel extends Component {
   /**
    *
    */
+  /* 
   handleFontChange (selectedFont) {
     console.log ("handleFontChange ("+selectedFont+")");
 
@@ -413,10 +422,12 @@ class AccordionPanel extends Component {
       this.props.applyFontChange (this.fontTools.fontSpecToStyle (this.state.style));
     }
   }
+  */
 
   /**
    *
    */
+  /* 
   handleTypefaceChange (selectedTypeface) {
     console.log ("handleTypefaceChange ("+selectedTypeface+")");
 
@@ -436,10 +447,12 @@ class AccordionPanel extends Component {
       this.props.applyFontChange (this.fontTools.fontSpecToStyle (this.state.style));
     }   
   }
+  */
 
   /**
    *
    */
+  /* 
   handleFontSizeChange (selectedFontSize) {
     console.log ("handleFontSizeChange ("+selectedFontSize+")");
 
@@ -454,12 +467,15 @@ class AccordionPanel extends Component {
         this.props.applyFontChange (this.fontTools.fontSpecToStyle (this.state.style));
       }  
     });      
-  }     
+  } 
+  */    
 
   /**
    *
    */
   handleTitleClick () {
+    console.log ("handleTitleClick ()");
+
     if (this.props.handleWindowPop) {
       this.props.handleWindowPop (this.props.data.uuid);
     }

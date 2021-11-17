@@ -13,7 +13,7 @@ import '../../css/accordionsheet.css';
 const theme = {
   scheme: 'monokai',
   author: 'wimer hazenberg (http://www.monokai.nl)',
-  base00: '#272822',
+  base00: '#27282200',
   base01: '#383830',
   base02: '#49483e',
   base03: '#75715e',
@@ -28,7 +28,7 @@ const theme = {
   base0C: '#a1efe4',
   base0D: '#66d9ef',
   base0E: '#ae81ff',
-  base0F: '#cc6633'
+  base0F: '#cc6633',
 };
 
 /**
@@ -116,7 +116,7 @@ class DryDock extends Component {
            {panelbuttons}
           </div>
           <div id="datatree" className="canvas">
-            <JSONTree data={this.state.data} theme={theme} invertTheme={true} />
+            <JSONTree data={this.state.data} theme={theme} invertTheme={false} />
           </div>
         </div>
         <AccordionPropertySheet ref="propertysheet" data={this.state.data} />
